@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Application facilitating internal comunication between sugar factories">
+    <meta name="author" content="Denitsa Radeva">
+    <title>Sugar Factory API</title>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!-- Bootstrap Core CSS -->
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- my css CSS -->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+
+    <body style="padding-top:20px">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="well">
+                <!--This table contains the fields that we want to capture to register a new user-->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="success">
+                            <th colspan="2">
+                                New User Registration
+                                <a href="Login.html" class="btn btn-success pull-right">
+                                    Login
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type="text" id="txtEmail" placeholder="Email" /> </td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>
+                                <input type="password" id="txtPassword"
+                                       placeholder="Password" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password</td>
+                            <td>
+                                <input type="password" id="txtConfirmPassword"
+                                       placeholder="Confirm Password" />
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="2">
+                                <input id="btnRegister" class="btn btn-success"
+                                       type="button" value="Register" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Bootstrap modal dialog that shows up when regsitration is successful-->
+                <div class="modal fade" tabindex="-1" id="successModal"
+                     data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title">Success</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <h2 class="modal-title">Registration Successful!</h2>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success"
+                                        data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Bootstrap alert to display any validation errors-->
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" href="#" class="close">&times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="Scripts/jquery-1.10.2.min.js"></script>
+        <script src="Scripts/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Close the bootstrap alert
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+            });
+
+            // Save the new user details
+            $('#btnRegister').click(function () {
+                $.ajax({
+                    url: '/api/account/register',
+                    method: 'POST',
+                    data: {
+                        email: $('#txtEmail').val(),
+                        password: $('#txtPassword').val(),
+                        confirmPassword: $('#txtConfirmPassword').val()
+                    },
+                    success: function () {
+                        $('#successModal').modal('show');
+                    },
+                    error: function (jqXHR) {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+                });
+            });
+        });
+        </script>
+    </body>
+</html>

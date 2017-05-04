@@ -1,0 +1,32 @@
+﻿@using PagedList    
+@using PagedList.Mvc
+@model  PagedList.IPagedList<SugarFactory.Models.ViewModels.AdminArea.UsersViewModel>
+@{
+    ViewBag.Title = "Admin panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Welcome to admin panel</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+
+        <th>Assign new role</th>
+
+        <th>Roles</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => user.Email) </td>
+
+
+            <td>@Html.ActionLink("Edit", "SetRole", new { id = user.Id}, new {@class= "btn  btn-warning"})</td>
+            <td>@Html.ActionLink("View roles", "ViewRoles", new { id = user.Id }, new { @class = "btn btn-success" })</td>
+        </tr>
+      
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfUsers, page => Url.Action("Index", new { page }))

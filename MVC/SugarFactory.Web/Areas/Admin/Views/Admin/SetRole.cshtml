@@ -1,0 +1,24 @@
+﻿@model SugarFactory.Models.ViewModels.AdminArea.UserAndRoleViewModel
+@{
+    ViewBag.Title = "SetRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Set new Role for @Model.Email</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("Roles:", null, new { @class = "form-control-label" })
+            @Html.DropDownList("RoleId", new SelectList(Model.Roles, "Id", "Name"), new { @class = "form-control", id = "RoleId" })
+        </div>
+        <div class="form-group">
+            <input type="text" hidden="hidden" value="@Model.UserId" name="UserId" />
+            <input type="submit" class="form-control" value="Add role" />
+
+        </div>
+ }
+
+

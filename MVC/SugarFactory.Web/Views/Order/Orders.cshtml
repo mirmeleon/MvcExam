@@ -1,0 +1,65 @@
+﻿@using PagedList; 
+@using PagedList.Mvc; 
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@model IPagedList<SugarFactory.Models.ViewModels.Orders.OrderViewModel>  
+
+    @{
+        ViewBag.Title = "Orders";
+    }
+  
+    <br />
+    <h2>Orders</h2>
+    <br />
+
+    @if (!@Model.Any())
+    {
+        <h3 class="text text-success">For the moment we don't have new orders.</h3>
+    }
+    <br />
+    <table class="table table-striped">
+        <tr>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.First().ClientPrefix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().SachetUniqueNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().PaperKg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderStatus)
+            </th>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <th>Edit</th>
+            }
+
+        </tr>
+        @foreach (var ord in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => ord.ClientPrefix)</td>
+                <td>@Html.DisplayFor(model => ord.OrderDate)</td>
+                <td>@Html.DisplayFor(model => ord.SachetUniqueNumber)</td>
+                <td>@Html.DisplayFor(model => ord.PaperKg)</td>
+                <td>@Html.DisplayFor(model => ord.OrderStatus)</td>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+
+                    <td>@Html.ActionLink("Edit", "EditOrder", "Order", new { id = ord.Id }, new { @class = "btn btn-lg btn-warning" })</td>
+                }
+            </tr>
+        }
+
+    </table>
+   
+    @Html.PagedListPager((IPagedList)ViewBag.OnePageOfOrders, page => Url.Action("Orders", new { page }))

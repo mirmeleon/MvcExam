@@ -1,0 +1,43 @@
+﻿@model SugarFactory.Models.ViewModels.Orders.OrderViewModel
+@{
+    ViewBag.Title = "EditOrder";
+}
+<br/>
+<h2>Edit Order</h2>
+
+    @Html.Label("Client Prefix:")
+  @Html.TextBox("ClientPrefix", @Model.ClientPrefix, new { @class = "form-control", @readonly = "readonly" })
+<br />
+@Html.Label("Sachet Unique Number:")
+@Html.TextBox("SachetUniqueNumber", @Model.SachetUniqueNumber, new { @class = "form-control", @readonly = "readonly" })
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.Label("Order Date:")
+        @Html.TextBox("OrderDate", @Model.OrderDate, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m=>m.OrderDate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Paper Kg:")
+        @Html.TextBox("PaperKg", @Model.PaperKg, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PaperKg, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Order Status:")
+        @Html.EnumDropDownListFor(model => model.OrderStatus, null, new {@class="form-control", name= "OrderStatus" })
+
+        
+    </div>
+
+    <input type="submit" value="Make change" class="btn btn-lg btn-primary" />
+    <input type="number" value="@Model.Id" hidden="hidden" name="Id"/>
+   
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

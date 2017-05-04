@@ -1,0 +1,19 @@
+﻿@model IEnumerable<SugarFactory.Models.ViewModels.AdminArea.CreatePrefixViewModel>
+
+
+<table class="table table-striped">
+    <tr>
+        <th>Client prefix:</th>
+    </tr>
+
+    @foreach (var prefix in Model)
+    {
+
+        <tr>
+            <td>@prefix.PrefixName</td>
+         
+        </tr>
+
+    }
+
+</table>

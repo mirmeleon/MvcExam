@@ -1,0 +1,45 @@
+﻿@using PagedList  
+@using PagedList.Mvc
+@model  PagedList.IPagedList<SugarFactory.Models.ViewModels.Sugar.AllSachetsViewModel>
+
+    @{
+        ViewBag.Title = "All sachets";
+    }
+    <br />
+    <h3>Sugar sachets</h3>
+
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().ClientPrefix)</th>
+            <th>@Html.DisplayNameFor(model => model.First().UniqueNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ImageUrl)</th>
+            <th>Order</th>
+
+        </tr>
+
+        @if (!Model.Any())
+        {
+            <tr>
+                <td> <h4 class="text-success">For the moment we don't have sugar sachets models created for you.</h4></td>
+            </tr>
+        }
+        else
+        {
+
+            foreach (var sachet in Model)
+            {
+
+                <tr>
+                    <td>@Html.DisplayFor(model => sachet.ClientPrefix)</td>
+                    <td>@Html.DisplayFor(model => sachet.UniqueNumber)</td>
+                    <td><img src="~/UploadedFiles/@Url.Content(sachet.ImageUrl)" width="50" height="75" alt="some img" /> </td>
+                    <td>@Html.ActionLink("New Order", "NewOrder", "Order", new { id = sachet.Id }, new { @class = "btn btn-success" })</td>
+
+
+                </tr>
+            }
+        }
+
+    </table>
+
+@Html.PagedListPager((IPagedList)ViewBag.paged, page => Url.Action("All", new { page }))

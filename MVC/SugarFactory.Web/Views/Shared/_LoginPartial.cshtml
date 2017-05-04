@@ -1,0 +1,60 @@
+﻿@if (Request.IsAuthenticated)
+{
+  
+    <ul class="dropdown-menu dropdown-user">
+        <li>
+            <a href="@Url.Action("Index", "Manage", new { area = "" })">
+                Manage account
+                <span class="fa fa-user fa-fw" aria-hidden="true"></span>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="@Url.Action("Index", "Admin", new { area = "" })">
+               User Control
+                <span class="fa fa-cogs" aria-hidden="true"></span>
+            </a>
+        </li>
+
+        <li class="divider"></li>
+
+
+        <li>
+            @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+
+               <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i>Log off</a>
+
+            }
+         </li>
+    </ul>
+
+  }
+ else
+   {
+            <ul class="dropdown-menu dropdown-user">
+                <li>
+
+                    <a href="@Url.Action("Register", "Account", new { area = "" })" id="registerLink">
+                        Register
+                        <span class="fa fa-user fa-fw" aria-hidden="true"></span>
+                    </a>
+
+                </li>
+
+                <li class="divider"></li>
+                <li>
+                    <a href="@Url.Action("Login", "Account", new {area = ""})" id="loginLink">
+                        Login
+                        <span class="fa fa-sign-in" aria-hidden="true"></span>
+                    </a>
+                </li>
+
+
+            </ul>
+
+  }
+
+
+

@@ -1,0 +1,125 @@
+﻿@model SugarFactory.Models.ViewModels.Sugar.MakeSachetViewModel
+@{
+    ViewBag.Title = "Make Sugar Sachet";
+}
+<br />
+<h2>Make Sachet</h2>
+<hr>
+<h4 class="text-warning"> Design: </h4>
+<hr>
+@using (Html.BeginForm("MakeSachet", "Sugar", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+   @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.Label("Sachet image:")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(m => m.ImgFile, new { type = "file", name = "ImgFile" }) 
+        @Html.ValidationMessageFor(model => model.ImgFile, "", new { @class = "text-danger" })
+       
+    </div>
+        <br />
+        
+    <div class="form-group">
+        @Html.Label("Sachet pdf for print:")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(m=>m.PdfFile, new { type = "file", name = "PdfFile" })
+        @Html.ValidationMessageFor(model=>model.PdfFile, "", new { @class = "text-danger" })
+        <br/>
+    </div>
+
+    <hr>
+    <h4 class="text-warning"> Unique Number:</h4>
+    <hr>
+    <div class="form-group">
+        @Html.Label("Client Prefix")
+        <span class="text-warning">*</span>
+        @Html.DropDownList("ClientPrefix", new SelectList(Model.ClientPrefixes, "PrefixName", "PrefixName"), new { @class = "form-control", name = "ClientPrefix" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Paper Width")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(m=>m.PaperWidth, new {@class="form-control", placeholder="Paper width", type="number"})
+        @Html.ValidationMessageFor(model=>model.PaperWidth, "", new { @class = "text-danger" })
+       
+    </div>
+    <hr>
+    <h4 class="text-warning"> Sachet Specifications:</h4>
+    <hr>
+    <div class="form-group">
+        @Html.Label("First Color")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(model=>model.FirstColor, new { @class = "form-control", placeholder = "first color" })
+        @Html.ValidationMessageFor(model=>model.FirstColor, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Second Color")
+        @Html.TextBoxFor(m=>m.SecondColor, new { @class = "form-control", placeholder = "second color" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Third Color")
+        @Html.TextBoxFor(m=>m.ThirdColor, new { @class = "form-control", placeholder = "third color" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Fourth Color")
+        @Html.TextBoxFor(m => m.FourthColor, new { @class = "form-control", placeholder = "fourth color" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Paper type")
+        <span class="text-warning">*</span>
+        @Html.EnumDropDownListFor(model => model.PaperType, null, new { @class = "form-control", name = "PaperType" })
+        @Html.ValidationMessageFor(model => model.PaperType, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Sachet Form")
+        <span class="text-warning">*</span>
+        @Html.EnumDropDownListFor(model => model.SachetForm, null, new { @class = "form-control", name = "SachetForm" })
+    </div>
+
+   
+   
+    <div class="form-group">
+        @Html.Label("ReelType")
+        <span class="text-warning">*</span>
+       @Html.EditorFor(model=>model.ReelType, new {htmlAttributes = new {@class="form-control", placeholder = "Reel Type" } })
+        @Html.ValidationMessageFor(model => model.ReelType, "", new { @class = "text-danger" })
+     </div>
+
+    <div class="form-group">
+        @Html.Label("Pass")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(m => m.Pass, new { @class = "form-control", placeholder = "Pass", type="number" })
+        @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("SugarSize")
+        <span class="text-warning">*</span>
+        @Html.EditorFor(model=>model.SugarSize, new { htmlAttributes = new { @class = "form-control", placeholder = "Sugar Size", type = "number" }})
+        @Html.ValidationMessageFor(model => model.SugarSize, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Printing Company")
+        <span class="text-warning">*</span>
+        @Html.TextBoxFor(m=>m.PrintingCompany, new { @class = "form-control", placeholder = "Printing Company" })
+        @Html.ValidationMessageFor(model => model.PrintingCompany, "", new { @class = "text-danger" })
+      
+    </div>
+
+        <div class="form-group">
+            <input type="submit" value="Submit sachet" class="btn btn-lg btn-success">
+        </div>
+        }
+       
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+       

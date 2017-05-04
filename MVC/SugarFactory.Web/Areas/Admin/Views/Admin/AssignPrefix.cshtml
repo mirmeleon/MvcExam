@@ -1,0 +1,48 @@
+﻿@model  SugarFactory.Models.ViewModels.AdminArea.AllUsersWithAllPrefixesVm 
+
+    @{
+        ViewBag.Title = "AssignPrefix";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+<br />
+    <h2>Assign Prefix</h2>
+<br />
+@if(!Model.UsersWithoutPrefix.Any())
+{
+  <h4 class="text-warning">There aren't clients without prefix to display!</h4>
+}
+
+
+<table class="table table-striped">
+
+    <tr>
+        <th>User</th>
+        <th>Prefix</th>
+        <th></th>
+    </tr>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        foreach (var client in Model.UsersWithoutPrefix)
+        {
+            <tr>
+
+                <td>@Html.DisplayFor(model => client.User.Email)</td>
+          
+                <td> @Html.DropDownList("ClientPrefix", new SelectList(Model.Prefixes, "PrefixName", "PrefixName"), new { @class = "form-control", name = "ClientPrefix" })</td>
+                <td>
+                    <input type="submit" value="Add prefix" class="form-control btn btn-warning" />
+                  
+                    <input type="number" value="@client.Id" hidden="hidden" name="Id" />
+
+                </td>
+
+            </tr>
+
+        }
+
+    }
+
+</table>
+

@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<br />
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 class="text-center">Sugar factory overview </h2>
+        <h4 class="text-center">(short documentation)</h4>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        <h5>Me and Sugar sachets</h5>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p>
+                        My name is Denitsa Radeva  <span class="text-info">
+                            <strong>(mirmeleon)</strong></span> and I'm last year student at Softuni with profile
+                                <span class="text-warning"><strong>C# Web Development.</strong></span>
+                    </p>
+                    <h5>About the app</h5>
+                    <p>
+                        The main goal of this application is to facilitate the comunicaton between sugar sachets factories.
+                    </p>
+                    <h5>Roles</h5>
+                    <h4>This app has 3 roles: Admin, Manager and Sugar User</h4>
+                    <p>
+
+                        <span class="text-warning"><strong>Admin:</strong></span> has the right to create new prefixes, assign prefixes, assign roles, create and view orders, create and view new sugar sachets. You can test this functionality with: <span class="text-success"><strong>deni@abv.bg and pass 123456</strong></span><br />
+                        <span class="text-warning"><strong>Manager:</strong></span> the same rights as admin except assigning roles. You can test this functionality with:<span class="text-success"><strong>manager@abv.bg and pass 123456</strong></span><br />
+                        <span class="text-warning"><strong>SugarUser:</strong></span> he can see only his orders and his sugar sachets and can make new orders. You can test this functionality with: <span class="text-success"><strong>sugaruser@abv.bg and pass 123456</strong></span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <h5>Web API and Unit tests</h5>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>In my <a href="https://github.com/mirmeleon/sugarFactorySimpleWebApi" target="_blank">git account</a> you can find simple <span class="text-info">Sugar Factory WebApi</span> with its own <span class="text-info"><strong>Unit tests!</strong></span> <i>(I know a lot of unit tests :D)</i></p>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        <h5>Chat</h5>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>We all love to comunicate that's why I have created a <a href="/home/fancyChat" target="_blank">chat room</a> where users can talk on global room or in private.</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                        <h5>Cache, sections and partial views</h5>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>There is enabled <span class="text-warning">cashe</span> - you can notice it with the <span class="text-warning">orange</span> datetime :). It is build as <span class="text-warning">separate section</span> when you are not logged in. If you are logged you can notice it as partial view in the left upper corner in your right menu.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                        <h5>Do you beleive in magic?</h5>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <h5 style="color: darkorchid">... or where the unicorns live.</h5>
+                    <p>I have made different error pages (dinamic and static), that can be seen if you hit <span style="color: darkorchid">404/500/403</span> errors. There is also a custom page for <span style="color: darkorchid">not authorised</span> access etc.</p>
+
+                </div>
+            </div>
+        </div>
+        
+        
+        
+
+    </div>
+
+</div>
+    </div>
+
+
+
+     @if (!User.Identity.IsAuthenticated)
+     {
+        @section Time {
+            <span style="padding: 5px;" class="text-warning">
+                @DateTime.Now.ToString("G")
+            </span>
+        }
+     }

@@ -1,0 +1,46 @@
+﻿@using System.Web.Mvc.Ajax
+@model SugarFactory.Models.ViewModels.AdminArea.CreatePrefixViewModel 
+
+    @{
+        ViewBag.Title = "Create Prefix";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+   
+<h2>Create Prefix</h2>
+
+<div id="prefix">
+    <p></p>
+</div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "prefixForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.TextBox("PrefixName", null, new { @class = "form-control" })
+            <br />
+               <input class="form-control btn btn-success" onclick="clicked()" type="submit" value="Create prefix" />
+
+
+                @Html.ValidationMessageFor(m => m.PrefixName, "", new { @class = "text-danger" })
+        }
+
+
+
+    @section Scripts
+        {
+                <script>
+
+                    $(document).ready(function clicked() {
+
+                        $("#prefix").load("/admin/update");
+                    });
+
+
+                </script>
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+        }
+

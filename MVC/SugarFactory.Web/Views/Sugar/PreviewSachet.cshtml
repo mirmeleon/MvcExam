@@ -1,0 +1,53 @@
+﻿@model SugarFactory.Models.ViewModels.Sugar.PreviewSachetViewModel
+@{
+    ViewBag.Title = "Preview";
+}
+<br />
+<h2>Preview sachet</h2>
+@Html.LabelFor(vm=>vm.UniqueNumber):
+<h3> @Html.DisplayFor(vm => vm.UniqueNumber)</h3>
+<br />
+@Html.LabelFor(vm=>vm.ImageUrl):
+ <img src="~/UploadedFiles/@Url.Content(Model.ImageUrl)" width="200" height="250" alt="some img"> 
+
+<br />
+@Html.LabelFor(vm => vm.PdfUrl):
+<a href="~/UploadedFiles/@Model.PdfUrl" target="_blank"> sachetPdf</a> 
+<br />
+@Html.LabelFor(vm => vm.PaperWidth):  <strong> @Html.DisplayFor(vm => vm.PaperWidth)</strong> <br />
+@Html.LabelFor(vm => vm.FirstColor): <strong> @Html.DisplayFor(vm => vm.FirstColor)</strong><br />
+@Html.LabelFor(vm => vm.SecondColor): <strong> @Html.DisplayFor(vm => vm.SecondColor)</strong>   <br />
+@Html.LabelFor(vm => vm.ThirdColor): <strong> @Html.DisplayFor(vm => vm.ThirdColor)</strong>      <br />
+@Html.LabelFor(vm => vm.FourthColor): <strong> @Html.DisplayFor(vm => vm.FourthColor)</strong>   <br />
+@Html.LabelFor(vm => vm.PaperType): <strong>@Html.DisplayFor(vm => vm.PaperType)</strong>         <br />
+@Html.LabelFor(vm => vm.Pass): <strong> @Html.DisplayFor(vm => vm.Pass)</strong>                        <br />
+@Html.LabelFor(vm => vm.ReelType): <strong> @Html.DisplayFor(vm => vm.ReelType)</strong>            <br />
+@Html.LabelFor(vm => vm.SachetForm): <strong> @Html.DisplayFor(vm => vm.SachetForm)</strong>      <br />
+@Html.LabelFor(vm => vm.SugarSize): <strong> @Html.DisplayFor(vm => vm.SugarSize)</strong>         <br />
+
+<hr>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.Label("Kg paper:")
+        @Html.TextBox("PaperKg", null, new {@class="form-control", name= "PaperKg", placeholder="paper kgs" })
+    </div>
+
+  
+
+    <div class="form-group">
+        @Html.Label("Unique number:")
+        @Html.TextBoxFor(vm=>vm.UniqueNumber, new { @class = "form-control", name = "UniqueNumber", @readonly="readonly"} )
+    </div>
+
+    
+
+    <div class="form-group">
+        <input type="submit" value="Order sachet" class="btn btn-lg btn-info">
+    </div>
+}
+
+
+
+

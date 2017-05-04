@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-1">
+        
+        <h2 id="sugar-content">Denitsa Radeva (mirmeleon) Presents:</h2>
+        <h1 id="sugar-content">Sugar Factory</h1>
+        <p class="lead" id="sugar-content">Sugar Factory App is a modern, time saving application that helps to sugar sachets factories  facilitate their process of creating and delivering sugar sachet. It organises all the process - from the design confirmation, through the order specifications till the finished product.</p>
+
+        <div class="row">
+            <div class="col-md-4">
+             
+                <h3>Controllers</h3>
+                <p>
+                    It has <span class="text-success">6 controllers:</span> Home, Admin, Account, Manage, Order and Sugar. Everyone of them has a specific role and holds variety of views.
+                </p>
+                <p>
+                    <a class="btn btn-warning" href="/Home/about">Learn more &raquo;</a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h3>Roles</h3>
+                <p>Sugar Factory app comes with <span class="text-success">3 different roles</span> and administration panel for easy management from the administration menu.</p>
+                <p>
+                    <a class="btn btn-warning" href="/Home/about">Learn more &raquo;</a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h3>Unit tests</h3>
+                <p>Sugar Factory app comes with <span class="text-success">27 unit tests</span> that will help keeping track of errors in the future.</p>
+                <p>
+                    <a class="btn btn-warning" href="/Home/about">Learn more &raquo;</a>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+  
+</div>
+ 
+@if (!User.Identity.IsAuthenticated)
+{
+    @section Time {
+        <span style="padding: 5px;" class="text-warning">
+            @DateTime.Now.ToString("G")
+        </span>
+    }
+}
+

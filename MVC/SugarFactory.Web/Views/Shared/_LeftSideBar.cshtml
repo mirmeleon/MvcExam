@@ -1,0 +1,97 @@
+﻿        <!-- /.navbar-top-links sidemenu-->
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        
+        <ul class="nav" id="side-menu">
+            <li>
+                <span style="padding: 15px;" class="text-warning">
+               
+                    @DateTime.Now.ToString("G")
+                </span>
+             
+            </li>
+       
+
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+                    Orders<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="@Url.Action("Orders", "Order", new {Area = ""})">
+                            All
+
+                        </a>
+
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <li>
+                    <a href="#">
+                        <i class="fa fa-cubes fa-fw" aria-hidden="true"></i>
+                        Sugar <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("All", "Sugar", new {Area = ""})"> Sugar sachets</a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("MakeSachet", "Sugar", new {Area = ""})">New sachet</a>
+                        </li>
+                     </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            }
+            else if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="#">
+                        <i class="fa fa-cubes fa-fw" aria-hidden="true"></i>
+                        Sugar <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("All", "Sugar", new {Area = ""})"> Sugar sachets</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            }
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <li>
+                    <a href="#">
+                        <i class="fa fa-wrench fa-fw" aria-hidden="true"></i>
+                        Admin area <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Index", "Admin", new {Area = ""})"> View Users</a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("CreatePrefix", "Admin", new {Area = ""})">Create Prefix</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AssignPrefix", "Admin", new {Area = ""})">Assign Prefix</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            }
+
+
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
+

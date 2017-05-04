@@ -1,0 +1,30 @@
+﻿@model   SugarFactory.Models.ViewModels.AdminArea.UserWithAssignedRoleViewModel
+@{
+    ViewBag.Title = "ViewRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<br />
+<h2>View Roles assigned to <span class="text-success">@Model.UserEmail</span></h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    foreach (var role in Model.Roles)
+    {
+     <div class="text-warning">
+         <h3>
+             @Html.DisplayFor(model => role.Name)
+             <input type="text" value="@role.Name" hidden="hidden" name="RolesName" />
+         </h3>
+        @if (@role.Name != "SugarUser")
+        {
+            <input type="submit" value="Remove role" class="btn btn-lg btn-info" />
+            <input type="text" value="@Model.UserEmail" hidden="hidden" name="UserEmail" />
+        }
+         
+     </div>
+
+    }
+
+}

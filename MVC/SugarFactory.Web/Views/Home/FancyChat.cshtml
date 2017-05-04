@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+<link href="~/Scripts/ui/jquery-ui.css" rel="stylesheet" />
+<link href="~/Scripts/ui/jquery-ui.structure.css" rel="stylesheet" />
+<link href="~/Scripts/ui/jquery-ui.theme.css" rel="stylesheet" />
+<link href="~/Content/ChatPage.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "FancyChat";
+    Layout = "";
+
+}
+
+
+<div id="header">
+    Sugar Factory Chat Room
+
+    | @Html.ActionLink("Go Home", "Index", "Home", new { area = "" }, htmlAttributes: new { @class = "text-warning" }) |
+
+   @if (User.Identity.GetUserName().Any())
+   {
+         @Html.ActionLink(" Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", new { area = "" }, htmlAttributes: new { title = "Manage", @class = "pull-right" })
+    }
+    else
+    {
+        <span class="pull-right"> | Hello, sugar!</span>
+    }
+ 
+</div>
+<br />
+<br />
+<br />
+
+<div id="divContainer">
+    <div id="divLogin" class="login">
+        <div>
+            Your Name:<br />
+            <input id="txtNickName" type="text" class="textBox" />
+        </div>
+        <div id="divButton">
+            <input id="btnStartChat" type="button" class="submitButton" value="Start Chat" />
+        </div>
+    </div>
+
+    <div id="divChat" class="chatRoom">
+        <div class="title">
+            Welcome to Chat Room [<span id='spanUser'></span>]
+
+        </div>
+        @*//userite*@
+        <div class="content">
+            <div id="divChatWindow" class="chatWindow">
+            </div>
+            <div id="divusers" class="users">
+            </div>
+        </div>
+
+        <div class="messageBar">
+            <input class="textbox" type="text" id="txtMessage" />
+            <input id="btnSendMsg" type="button" value="Send" class="submitButton" />
+        </div>
+
+    </div>
+
+    <input id="hdId" type="hidden" />
+    <input id="hdUserName" type="hidden" />
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+
+<script src="~/Scripts/ui/jquery-ui.js"></script>
+
+<script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+
+<script src="~/signalr/hubs"></script>
+
+<script src="~/Scripts/FancyChat.js"></script>
