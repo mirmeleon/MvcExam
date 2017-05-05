@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -7,6 +8,7 @@ using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SugarFactor.WebApi.Controllers;
+using SugarFactory.Data;
 using SugarFactory.Models.BindingModels.Orders;
 using SugarFactory.Models.BindingModels.Sugar;
 using SugarFactory.Models.EntityModels;
@@ -21,7 +23,7 @@ namespace SugarFactory.ApiTests
         private OrdersController _controller;
         private IEnumerable<Order> _orders;
         private HttpConfiguration _config;
-
+        private SugarFactoryContext _context;
         [TestInitialize]
         public void Init()
         {
@@ -29,6 +31,7 @@ namespace SugarFactory.ApiTests
             _config = new HttpConfiguration();
             this._controller.Configuration = _config;
             ConfigureAutoMapper();
+            this._context = new SugarFactoryContext();
         }
 
         [TestMethod]
@@ -58,15 +61,16 @@ namespace SugarFactory.ApiTests
         [TestMethod]
         public void EditOrder_ShouldReturn_CreatedWhenModelIsValid()
         {
+            var orderId = this._context.Orders.FirstOrDefault().Id;
             var editOrderBm = new Mock<EditOrderBm>();
             editOrderBm.SetupAllProperties();
             editOrderBm.Object.PaperKg = 12;
-            editOrderBm.Object.Id = 15;
+            editOrderBm.Object.Id = orderId;
             editOrderBm.Object.OrderStatus = 0;
             editOrderBm.Object.OrderDate = DateTime.Today;
 
             
-            var result = _controller.EditOrder(15, editOrderBm.Object) as StatusCodeResult;
+            var result = _controller.EditOrder(orderId, editOrderBm.Object) as StatusCodeResult;
 
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
@@ -82,19 +86,6 @@ namespace SugarFactory.ApiTests
             var result = _controller.CreateOrder(newOrderBm.Object) as StatusCodeResult;
 
             Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
-        }
-
-        [TestMethod]
-        public void CreateOrder_ShouldReturn_CreatedWhenNewOrderModelIsValid()
-        {
-            var newOrderBm = new Mock<NewOrderBm>();
-            newOrderBm.Object.PaperKg = 10;
-            newOrderBm.Object.Id = 25;
-           this._controller.Validate(newOrderBm.Object);
-
-            var result = _controller.CreateOrder(newOrderBm.Object) as StatusCodeResult;
-
-            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
 
 

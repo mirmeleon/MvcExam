@@ -13,7 +13,7 @@ using SugarFactory.Models.Enums;
 using SugarFactory.Models.ViewModels.AdminArea;
 using SugarFactory.Models.ViewModels.Orders;
 using SugarFactory.Models.ViewModels.Sugar;
-//using ClientPrefix = SugarFactory.Models.EntityModels.ClientPrefix;
+
 
 namespace SugarFactory.Web
 {

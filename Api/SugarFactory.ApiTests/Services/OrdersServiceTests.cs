@@ -24,6 +24,7 @@ namespace SugarFactory.ApiTests.Services
         private IEnumerable<Order> _orders;
         private HttpConfiguration _config;
         private SugarFactoryContext _context;
+        private OrdersController _controller;
 
         [TestInitialize]
         public void Init()
@@ -31,13 +32,21 @@ namespace SugarFactory.ApiTests.Services
             this._service = new OrdersService();
             ConfigureAutoMapper();
             this._context = new SugarFactoryContext();
+            this._controller = new OrdersController();
+            if (!this._context.Orders.Any())
+            {
+                var order = new Order() { ClientPrefix = "TE", OrderDate = DateTime.Now, OrderStatus = OrderStatus.InProduction, PaperKg = 34, SachetUniqueNumber = "UNITTEST" };
+                this._context.Orders.Add(order);
+                this._context.SaveChanges();
+            }
         }
 
         [TestMethod]
         public void GetOrders_ShouldReturn_EnumerationWithTheSameCount()
         {
             IEnumerable<Order> orders = this._context.Orders;
-
+        
+               
             var mockSet = new Mock<DbSet<Order>>();
             var mockContext = new Mock<SugarFactoryContext>();
             mockContext.Setup(m => m.Orders).Returns(mockSet.Object);
@@ -51,18 +60,19 @@ namespace SugarFactory.ApiTests.Services
             var result = this._service.GetOrders();
 
             Assert.AreEqual(mappedOrders.Count(), result.Count());
-
+         
         }
 
         [TestMethod]
         public void GetOrderToEdit_ShouldReturn_OrderWithGivvenId()
         {
+            var orderId = this._context.Orders.FirstOrDefault().Id;
             var mockedOrder = CreateFakeOrder();
-            mockedOrder.Object.Id = 18;
+            mockedOrder.Object.Id = orderId;
 
             OrderViewModel vm = Mapper.Map<Order, OrderViewModel>(mockedOrder.Object);
 
-            var result = _service.GetOrder(18);
+            var result = _service.GetOrder(orderId);
 
             Assert.AreEqual(vm.Id, result.Id);
         }
@@ -70,8 +80,9 @@ namespace SugarFactory.ApiTests.Services
         [TestMethod]
         public void EditOrder_ShouldReturn_EditedOrder()
         {
+            var orderId = this._context.Orders.FirstOrDefault().Id;
             var mockedOrder = CreateFakeOrder();
-            mockedOrder.Object.Id = 18;
+            mockedOrder.Object.Id = orderId;
 
             var changedOrder = new Mock<EditOrderBm>();
             changedOrder.Object.OrderDate = DateTime.Today + TimeSpan.FromDays(2);
@@ -128,6 +139,16 @@ namespace SugarFactory.ApiTests.Services
                         opt => opt.MapFrom(
                             src => src.OrderDate.Date.ToString("dd/MM/yyyy")));
             });
+        }
+
+        private void RemoveTestOrder(int orderId)
+        {
+            if (this._context.Orders.Find(orderId).SachetUniqueNumber == "UNITTEST")
+            {
+                var order = this._context.Orders.FirstOrDefault(o => o.SachetUniqueNumber == "UNITTEST");
+                this._context.Orders.Remove(order);
+                this._context.SaveChanges();
+            }
         }
     }
 }
